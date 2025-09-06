@@ -4,6 +4,7 @@ import myTestLibrary.BrowserInit;
 import com.expandtesting.Pages.PageLogin;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,6 +18,7 @@ public class loginTest extends BaseTest {
     private String invalidUser = "InvalidUser";
     private String validPass = "SuperSecretPassword!";
     private String invalidPass = "InvalidPass";
+    private PageLogin loginPage;
 
     @BeforeMethod
     public void setUp() {
@@ -28,11 +30,20 @@ public class loginTest extends BaseTest {
         // keepState = true;
     }
 
+    @AfterMethod
+    public void tearDown() {
+        if (driver.getCurrentUrl().equals(this.baseUrl + successfulUrl)) {
+            this.loginPage.logoutIfPresent();
+        }
+        super.tearDown();
+    }
+
+
     // Successful scenario
     @Test
     public void ValidLogin() {
-        PageLogin login = new PageLogin(driver);
-        login.login(validUser, validPass);
+        this.loginPage = new PageLogin(driver);
+        loginPage.login(validUser, validPass);
         // Chrome security pop-up when using default credentials is a blocker unless handled
         if ("Chrome".equalsIgnoreCase(this.browser)) {
             // Wait for pop-up (usually around 2 seconds. Not accessible via DOM so can't wait dynamically,
@@ -43,7 +54,7 @@ public class loginTest extends BaseTest {
                 Thread.currentThread().interrupt();
             }
             // Handle the popup
-            login.handleChromePasswordSecurityPopup();
+            loginPage.handleChromePasswordSecurityPopup();
         }
         this.wait.until(ExpectedConditions.urlToBe(this.baseUrl + successfulUrl));
     }
@@ -71,4 +82,5 @@ public class loginTest extends BaseTest {
         login.login(invalidUser, invalidPass);
         this.wait.until(ExpectedConditions.urlToBe(url));
     }
+
 }

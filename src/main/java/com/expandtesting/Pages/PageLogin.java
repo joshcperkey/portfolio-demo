@@ -1,6 +1,7 @@
 package com.expandtesting.Pages;
 
 import com.yourproject.pages.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -37,14 +38,25 @@ public class PageLogin extends BasePage {
     }
 
     public void login(String user, String pass) {
-        this.neutralizePage(); // inherited from BasePage
+        this.neutralizePage();
 
-        this.scrollToElement(username, 0);
-        username.sendKeys(user);
+        enterUsername(user);
+        enterPassword(pass);
+        clickLoginButton();
+    }
 
-        this.scrollToElement(password, 0);
-        password.sendKeys(pass);
+    @Step("Enter username: {user}")
+    private void enterUsername(String user) {
+        this.safeSendKeys(username, user);
+    }
 
+    @Step("Enter password: {pass}")
+    private void enterPassword(String pass) {
+        this.safeSendKeys(password, pass);
+    }
+
+    @Step("Click login button")
+    private void clickLoginButton() {
         this.safeClick(loginButton);
     }
 }

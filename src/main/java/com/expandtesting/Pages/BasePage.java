@@ -124,5 +124,24 @@ public abstract class BasePage {
         return false;
     }
 
+    // Attempts to safely click an element after scrolling to it and it being clickable.
+    public boolean safeSendKeys(WebElement element, String value) {
+        try {
+            neutralizePage();
+            scrollToElement(element, 0);
+            wait.until(ExpectedConditions.visibilityOf(element));
+            element.clear();
+            element.sendKeys(value);
+            return true;
+        } catch (ElementNotInteractableException e) {
+            System.out.println("Element not interactable: " + e.getMessage());
+            neutralizePage();
+        } catch (Exception e) {
+            System.out.println("Unexpected error during sendKeys: " + e.getMessage());
+        }
+        return false;
+    }
+
+
 }
 
