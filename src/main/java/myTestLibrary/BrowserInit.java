@@ -1,4 +1,4 @@
-package Library;
+package myTestLibrary;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -55,10 +55,10 @@ public class BrowserInit {
 
         }
         // Microsoft Edge
-        else if(browsername.equalsIgnoreCase("IE"))
+        else if(browsername.equalsIgnoreCase("Edge"))
         {
             // Set the path for IEdriver.exe
-            System.setProperty("webdriver.ie.driver","C:\\Program Files\\WebDrivers\\msedgedriver.exe");
+            System.setProperty("webdriver.edge.driver","C:\\Program Files\\WebDrivers\\msedgedriver.exe");
             driver = new InternetExplorerDriver();
         }
 

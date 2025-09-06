@@ -1,64 +1,47 @@
 package jperkeydemo.Tests;
 
-import Library.BrowserInit;
-import com.expandtesting.Pages.pageLogin;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
+import myTestLibrary.BrowserInit;
+import com.expandtesting.Pages.PageLogin;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class loginTest {
-    WebDriver driver;
-    String validUser="practice";
-    String invalidUser="InvalidUser";
-    String validPass="SuperSecretPassword!";
-    String invalidPass="InvalidPass";
+public class loginTest extends BaseTest {
+    private String pageUrl = "/login";
+    public String url = this.baseUrl + pageUrl;
+    private String validUser = "practice";
+    private String invalidUser = "InvalidUser";
+    private String validPass = "SuperSecretPassword!";
+    private String invalidPass = "InvalidPass";
 
     @BeforeMethod
     public void setUp() {
-        String url = "https://practice.expandtesting.com/login";
-        driver = BrowserInit.StartBrowser("Chrome",url);
+        driver = BrowserInit.StartBrowser(this.browser, url);
+
+        // Optional: override keepState for debugging or chaining
+        // keepState = true;
     }
 
     @Test
-    public void ValidLogin()
-    {
-        // Valid site login credentials
-        pageLogin login = new pageLogin(driver);
-        login.login(validUser,validPass);
+    public void ValidLogin() {
+        PageLogin login = new PageLogin(driver);
+        login.login(validUser, validPass);
     }
 
     @Test
-    public void InvalidUsernameLogin()
-    {
-        // Invalid username provided
-        pageLogin login = new pageLogin(driver);
-        login.login(invalidUser,validPass);
+    public void InvalidUsernameLogin() {
+        PageLogin login = new PageLogin(driver);
+        login.login(invalidUser, validPass);
     }
 
     @Test
-    public void InvalidPasswordLogin()
-    {
-        // Invalid password provided
-        pageLogin login = new pageLogin(driver);
-        login.login(validUser,invalidPass);
+    public void InvalidPasswordLogin() {
+        PageLogin login = new PageLogin(driver);
+        login.login(validUser, invalidPass);
     }
 
     @Test
-    public void BothCredentialInvalidLogin()
-    {
-        // Both credentials invalid
-        pageLogin login = new pageLogin(driver);
-        login.login(invalidUser,invalidPass);
+    public void BothCredentialInvalidLogin() {
+        PageLogin login = new PageLogin(driver);
+        login.login(invalidUser, invalidPass);
     }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
 }
-
