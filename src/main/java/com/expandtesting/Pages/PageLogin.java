@@ -45,8 +45,6 @@ public class PageLogin extends BasePage {
         this.scrollToElement(password, 0);
         password.sendKeys(pass);
 
-        this.safeClick(loginButton); // inherited from BasePage
-
-        this.logoutIfPresent();
+        this.safeClick(loginButton);
     }
 }

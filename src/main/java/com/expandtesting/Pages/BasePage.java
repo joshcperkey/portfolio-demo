@@ -49,6 +49,28 @@ public abstract class BasePage {
         }
     }
 
+    // Uses javascript to click at a screen coordinate (for when DOM isn't interactable or there's an element outside control of the DOM
+    public void clickAtViewportCoordinates(int x, int y) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) PageDriver;
+            js.executeScript("document.elementFromPoint(arguments[0], arguments[1]).click();", x, y);
+            System.out.println("Clicked at viewport coordinates: " + x + ", " + y);
+        } catch (Exception e) {
+            System.out.println("JavaScript coordinate click failed: " + e.getMessage());
+        }
+    }
+
+    // After login, (and perhaps other scenarios) when using the generic provided valid login credentials from the demo stie,
+    // a password found in data breach pop notification is displayed that is not apart of the DOM, though is generally in a
+    // consistent location.
+    // Attempts to dismiss security notification by a click
+    public void handleChromePasswordSecurityPopup() {
+        int x = 936;
+        int y = 252;
+        clickAtViewportCoordinates(x,y);
+    }
+
+
     // Handles popups, overlays, or other page interference
     public void neutralizePage() {
         List<WebElement> interceptors = this.PageDriver.findElements(By.xpath(
@@ -101,5 +123,6 @@ public abstract class BasePage {
         }
         return false;
     }
+
 }
 
