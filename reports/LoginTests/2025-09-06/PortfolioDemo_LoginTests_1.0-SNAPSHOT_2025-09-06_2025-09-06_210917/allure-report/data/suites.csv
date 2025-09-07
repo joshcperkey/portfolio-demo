@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","7499","ValidLogin","PortfolioDemoSuite","2025-09-06","passed","2025-09-06","jperkeydemo.Tests.LoginTest","LoginTests","jperkeydemo.Tests.LoginTest","ValidLogin"
+"","4957","BothCredentialInvalidLogin","PortfolioDemoSuite","2025-09-06","passed","2025-09-06","jperkeydemo.Tests.LoginTest","LoginTests","jperkeydemo.Tests.LoginTest","BothCredentialInvalidLogin"
+"","4134","InvalidPasswordLogin","PortfolioDemoSuite","2025-09-06","passed","2025-09-06","jperkeydemo.Tests.LoginTest","LoginTests","jperkeydemo.Tests.LoginTest","InvalidPasswordLogin"
+"","3786","InvalidUsernameLogin","PortfolioDemoSuite","2025-09-06","passed","2025-09-06","jperkeydemo.Tests.LoginTest","LoginTests","jperkeydemo.Tests.LoginTest","InvalidUsernameLogin"

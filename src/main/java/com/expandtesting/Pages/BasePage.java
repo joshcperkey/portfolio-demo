@@ -126,21 +126,40 @@ public abstract class BasePage {
 
     // Attempts to safely click an element after scrolling to it and it being clickable.
     public boolean safeSendKeys(WebElement element, String value) {
-        try {
-            neutralizePage();
-            scrollToElement(element, 0);
-            wait.until(ExpectedConditions.visibilityOf(element));
-            element.clear();
-            element.sendKeys(value);
-            return true;
-        } catch (ElementNotInteractableException e) {
-            System.out.println("Element not interactable: " + e.getMessage());
-            neutralizePage();
-        } catch (Exception e) {
-            System.out.println("Unexpected error during sendKeys: " + e.getMessage());
+        int attempts = 0;
+        int maxAttempts = 4;
+
+        while (attempts <= maxAttempts) {
+            try {
+                scrollToElement(element, attempts); // adaptive scroll logic
+                wait.until(ExpectedConditions.visibilityOf(element));
+                element.clear();
+                element.sendKeys(value);
+                return true; // success
+            } catch (ElementNotInteractableException e) {
+                System.out.println("Attempt " + (attempts + 1) + ": Element not interactable – " + e.getMessage() + "\nNeutralizing the page");
+                this.neutralizePage();
+            } catch (Exception e) {
+                System.out.println("Attempt " + (attempts + 1) + ": Unexpected exception – " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                this.neutralizePage();
+            }
+
+            attempts++; // always increment
+            if (attempts <= maxAttempts) {
+                System.out.println("Retrying");
+                try {
+                    Thread.sleep(500); // brief pause before retry
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
+            } else {
+                System.out.println("SendKeys failure");
+                return false;
+            }
         }
         return false;
     }
+
 
 
 }

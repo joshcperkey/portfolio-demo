@@ -1,7 +1,7 @@
 package jperkeydemo.Tests;
 
 import myTestLibrary.BrowserInit;
-import com.expandtesting.Pages.PageLogin;
+import com.expandtesting.Pages.LoginPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class loginTest extends BaseTest {
+public class LoginTest extends BaseTest {
     private String pageUrl = "/login";
     private String successfulUrl = "/secure";
     public String url = this.baseUrl + pageUrl;
@@ -18,10 +18,11 @@ public class loginTest extends BaseTest {
     private String invalidUser = "InvalidUser";
     private String validPass = "SuperSecretPassword!";
     private String invalidPass = "InvalidPass";
-    private PageLogin loginPage;
+    private LoginPage loginPage;
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
         this.browser = "Chrome";
         this.driver = BrowserInit.StartBrowser(this.browser, url);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -42,8 +43,8 @@ public class loginTest extends BaseTest {
     // Successful scenario
     @Test
     public void ValidLogin() {
-        this.loginPage = new PageLogin(driver);
-        loginPage.login(validUser, validPass);
+        this.loginPage = new LoginPage(driver);
+        loginPage.login(validUser, validPass, this.logBuffer);
         // Chrome security pop-up when using default credentials is a blocker unless handled
         if ("Chrome".equalsIgnoreCase(this.browser)) {
             // Wait for pop-up (usually around 2 seconds. Not accessible via DOM so can't wait dynamically,
@@ -62,24 +63,24 @@ public class loginTest extends BaseTest {
     // Failure scenario
     @Test
     public void InvalidUsernameLogin() {
-        PageLogin login = new PageLogin(driver);
-        login.login(invalidUser, validPass);
+        this.loginPage = new LoginPage(driver);
+        loginPage.login(invalidUser, validPass, this.logBuffer);
         this.wait.until(ExpectedConditions.urlToBe(url));
     }
 
     // Failure scenario
     @Test
     public void InvalidPasswordLogin() {
-        PageLogin login = new PageLogin(driver);
-        login.login(validUser, invalidPass);
+        this.loginPage = new LoginPage(driver);
+        loginPage.login(validUser, invalidPass, this.logBuffer);
         this.wait.until(ExpectedConditions.urlToBe(url));
     }
 
     // Failure scenario
     @Test
     public void BothCredentialInvalidLogin() {
-        PageLogin login = new PageLogin(driver);
-        login.login(invalidUser, invalidPass);
+        this.loginPage = new LoginPage(driver);
+        loginPage.login(invalidUser, invalidPass, this.logBuffer);
         this.wait.until(ExpectedConditions.urlToBe(url));
     }
 
