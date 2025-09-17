@@ -5,7 +5,9 @@
     </listeners>
     <test name="LoginTestSuite">
         <packages>
-            <package name="jperkeydemo.Tests.LoginTests"/>
         </packages>
+        <classes>
+            <class name="jperkeydemo.Tests.LoginTest"/>
+        </classes>
     </test>
 </suite>

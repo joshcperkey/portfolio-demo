@@ -1,4 +1,4 @@
-package jperkeydemo.Tests.LoginTests;
+package jperkeydemo.Tests;
 
 import com.expandtesting.Pages.LoginPage;
 import io.qameta.allure.*;
