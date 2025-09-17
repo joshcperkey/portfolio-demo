@@ -1,6 +1,6 @@
 package com.expandtesting.Pages;
 
-import com.yourproject.pages.BasePage;
+import com.expandtesting.Pages.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -30,10 +30,13 @@ public class LoginPage extends BasePage {
         try {
             WebElement logoutButton = this.wait.until(ExpectedConditions.presenceOfElementLocated(
                     By.xpath("//a[i[@class='icon-2x icon-signout']]")));
-            scrollToElement(logoutButton, 0); // inherited from BasePage
-            logoutButton.click();
+            //scrollToElement(logoutButton, 0); // inherited from BasePage
+            //logoutButton.click();
+            this.neutralizePage();
+            this.safeClick(logoutButton);
         } catch (TimeoutException e) {
             // No logout button—likely due to failed login
+            return;
         }
     }
 

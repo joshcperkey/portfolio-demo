@@ -35,6 +35,15 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.20.1/aspectjweaver-1.9.20.1.jar"
                     </argLine>
+                    <includes>
+                        <include>**/LoginTestSuite.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*$*.class</exclude> <!-- Exclude all inner classes -->
+                    </excludes>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <reuseForks>false</reuseForks>
                 </configuration>
                 <dependencies>
                     <dependency>

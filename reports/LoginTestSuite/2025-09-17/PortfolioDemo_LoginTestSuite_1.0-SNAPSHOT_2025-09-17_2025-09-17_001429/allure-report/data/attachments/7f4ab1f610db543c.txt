@@ -1,0 +1,5 @@
+Scenario: Valid credentials✔ Entered username: practice
+✔ Entered password: SuperSecretPassword!
+✔ Clicked login button
+Driver Quit Successfully
+Test End

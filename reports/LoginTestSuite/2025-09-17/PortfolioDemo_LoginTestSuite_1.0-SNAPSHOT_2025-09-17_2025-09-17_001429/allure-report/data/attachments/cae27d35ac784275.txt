@@ -1,0 +1,20 @@
+Scenario: Valid credentials✔ Entered username: practice
+✔ Entered password: SuperSecretPassword!
+✔ Clicked login button
+Driver Quit Successfully
+Test End
+Scenario: Invalid username✔ Entered username: InvalidUser
+✔ Entered password: SuperSecretPassword!
+✔ Clicked login button
+Driver Quit Successfully
+Test End
+Scenario: Invalid password✔ Entered username: practice
+✔ Entered password: InvalidPass
+✔ Clicked login button
+Driver Quit Successfully
+Test End
+Scenario: Both invalid✔ Entered username: InvalidUser
+✔ Entered password: InvalidPass
+✔ Clicked login button
+Driver Quit Successfully
+Test End

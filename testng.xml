@@ -3,9 +3,9 @@
     <listeners>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
-    <test name="LoginTests">
-        <classes>
-            <class name="jperkeydemo.Tests.LoginTest"/>
-        </classes>
+    <test name="LoginTestSuite">
+        <packages>
+            <package name="jperkeydemo.Tests.LoginTests"/>
+        </packages>
     </test>
 </suite>

@@ -1,4 +1,4 @@
-package com.yourproject.pages;
+package com.expandtesting.Pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
